@@ -5,11 +5,8 @@
 *.key
 
 # Java / Spring
-target/
-build/
+backend/target/
 *.class
-.gradle/
-!gradle/wrapper/gradle-wrapper.jar
 
 # Node / React
 node_modules/
@@ -25,3 +22,7 @@ dist/
 
 # Logs
 *.log
+
+# H2 database
+backend/data/
+*.db
