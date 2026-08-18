@@ -3,6 +3,7 @@ import type {
   BreakPage,
   ImportResponse,
   MerchantRollup,
+  QuarantineItem,
   RunListItem,
   RunResponse,
   RunSummaryResponse,
@@ -78,4 +79,8 @@ export function fetchBreaks(
 
 export function fetchBreakDetail(runId: number, outcomeId: number) {
   return request<BreakDetail>(`/api/runs/${runId}/breaks/${outcomeId}`)
+}
+
+export function fetchQuarantine(runId: number) {
+  return request<QuarantineItem[]>(`/api/runs/${runId}/quarantine`)
 }

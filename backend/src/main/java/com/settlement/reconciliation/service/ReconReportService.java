@@ -106,7 +106,9 @@ public class ReconReportService {
                 expected,
                 actual,
                 expected.subtract(actual),
-                fees
+                fees,
+                internalTxnRepository.sumSaleGross(batchId),
+                internalTxnRepository.sumRefundGross(batchId)
         );
 
         return new RunSummaryResponse(

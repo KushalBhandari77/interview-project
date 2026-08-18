@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { MerchantRollup, RunSummaryResponse } from './api/types'
-import { fetchMerchants, fetchRunHistory, fetchSummary } from './api/client'
+import type { MerchantRollup, QuarantineItem, RunSummaryResponse } from './api/types'
+import { fetchMerchants, fetchQuarantine, fetchRunHistory, fetchSummary } from './api/client'
 import { ApiError } from './api/client'
 import { ImportPanel } from './components/ImportPanel'
 import { SummaryDashboard } from './components/SummaryDashboard'
 import { MerchantTable } from './components/MerchantTable'
 import { BreakList } from './components/BreakList'
+import { QuarantinePanel } from './components/QuarantinePanel'
 import { ErrorBanner } from './components/ErrorBanner'
 import { formatDateTime } from './utils/format'
 import './App.css'
@@ -15,6 +16,7 @@ function App() {
   const [runHistory, setRunHistory] = useState<{ runId: number; runAt: string }[]>([])
   const [summary, setSummary] = useState<RunSummaryResponse | null>(null)
   const [merchants, setMerchants] = useState<MerchantRollup[]>([])
+  const [quarantine, setQuarantine] = useState<QuarantineItem[]>([])
   const [merchantFilter, setMerchantFilter] = useState('')
 
   const [loadingRun, setLoadingRun] = useState(false)
@@ -35,18 +37,21 @@ function App() {
     setGlobalError(null)
     setMerchantFilter('')
     try {
-      const [sum, merch] = await Promise.all([
+      const [sum, merch, quar] = await Promise.all([
         fetchSummary(id),
         fetchMerchants(id),
+        fetchQuarantine(id),
       ])
       setRunId(id)
       setSummary(sum)
       setMerchants(merch)
+      setQuarantine(quar)
     } catch (err) {
       const msg = err instanceof ApiError ? err.message : 'Could not load run'
       setGlobalError(msg)
       setSummary(null)
       setMerchants([])
+      setQuarantine([])
     } finally {
       setLoadingRun(false)
     }
@@ -112,6 +117,7 @@ function App() {
       {!loadingRun && summary && runId != null && (
         <>
           <SummaryDashboard summary={summary} />
+          <QuarantinePanel items={quarantine} />
           <MerchantTable
             merchants={merchants}
             selectedMerchant={merchantFilter}

@@ -30,6 +30,16 @@ export interface PayoutSummary {
   actualSettled: number
   discrepancy: number
   totalFees: number
+  saleGross: number
+  refundGross: number
+}
+
+export interface QuarantineItem {
+  side: string
+  lineNumber: number
+  sourceId: string | null
+  reason: string
+  rawPayload: string
 }
 
 export interface RunSummaryResponse {

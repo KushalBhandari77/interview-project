@@ -39,6 +39,34 @@ export function SummaryDashboard({ summary }: Props) {
         </div>
       </div>
 
+      <h3 className="subsection">Money checks (valid rows only)</h3>
+      <table className="data-table compact">
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th className="num">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total gross (valid sales)</td>
+            <td className="num">{formatMoney(payout.saleGross)}</td>
+          </tr>
+          <tr>
+            <td>Total refund gross (internal)</td>
+            <td className="num">{formatMoney(payout.refundGross)}</td>
+          </tr>
+          <tr>
+            <td>Total settled (all settlement rows)</td>
+            <td className="num">{formatMoney(payout.actualSettled)}</td>
+          </tr>
+          <tr>
+            <td>Total fees deducted (interchange + processor)</td>
+            <td className="num">{formatMoney(payout.totalFees)}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h3 className="subsection">By category</h3>
       <table className="data-table compact">
         <thead>

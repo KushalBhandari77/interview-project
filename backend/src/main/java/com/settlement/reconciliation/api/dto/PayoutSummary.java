@@ -6,6 +6,8 @@ public record PayoutSummary(
         BigDecimal expectedPayout,
         BigDecimal actualSettled,
         BigDecimal discrepancy,
-        BigDecimal totalFees
+        BigDecimal totalFees,
+        BigDecimal saleGross,
+        BigDecimal refundGross
 ) {
 }

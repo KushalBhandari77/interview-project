@@ -70,7 +70,9 @@ class RunControllerTest {
                         new BigDecimal("500.00"),
                         new BigDecimal("498.50"),
                         new BigDecimal("1.50"),
-                        new BigDecimal("12.00")
+                        new BigDecimal("12.00"),
+                        new BigDecimal("6804.12"),
+                        new BigDecimal("-1557.02")
                 )
         );
         when(reconReportService.getSummary(7L)).thenReturn(summary);
